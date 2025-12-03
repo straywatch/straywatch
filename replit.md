@@ -36,6 +36,14 @@ src/
 │   └── use-mobile.tsx     # Mobile detection
 └── styles/
     └── index.css          # Tailwind + custom styles
+
+supabase/
+└── migrations/
+    ├── 001_create_reports_table.sql    # Reports table with indexes
+    ├── 002_enable_rls_policies.sql     # Row Level Security policies
+    ├── 003_create_updated_at_trigger.sql # Auto-update timestamps
+    ├── 004_create_stats_view.sql       # Statistics views
+    └── README.md                        # Migration instructions
 ```
 
 ## Environment Variables
@@ -86,3 +94,4 @@ The app runs on port 5000.
 - Built interactive Leaflet map with report markers
 - Added report submission form with location picker
 - Created profile page for managing user reports
+- Added database migrations with RLS policies, triggers, and stats views (December 2024)
