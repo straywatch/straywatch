@@ -23,6 +23,7 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
+    "@astrojs/netlify": "^6.6.3",
     "@tailwindcss/vite": "^4.0.0",
     "@types/leaflet": "^1.9.15",
     "@types/react": "^18.3.14",
