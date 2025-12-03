@@ -1,0 +1,64 @@
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || '';
+
+const isConfigured = supabaseUrl && supabaseAnonKey;
+
+export const supabase: SupabaseClient = isConfigured 
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : createClient('https://placeholder.supabase.co', 'placeholder-key');
+
+export const isSupabaseConfigured = isConfigured;
+
+export type ReportType = 'sighting' | 'bite' | 'garbage';
+
+export interface Report {
+  id: string;
+  type: ReportType;
+  lat: number;
+  lng: number;
+  count: number;
+  severity: string | null;
+  notes: string | null;
+  user_id: string | null;
+  created_at: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+}
+
+export async function signUp(email: string, password: string) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+  if (error) throw error;
+  return data;
+}
+
+export async function signIn(email: string, password: string) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  if (error) throw error;
+  return data;
+}
+
+export async function signOut() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+}
+
+export async function getCurrentUser() {
+  const { data: { user } } = await supabase.auth.getUser();
+  return user;
+}
+
+export async function getSession() {
+  const { data: { session } } = await supabase.auth.getSession();
+  return session;
+}
